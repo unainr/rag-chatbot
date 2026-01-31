@@ -4,8 +4,8 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>
-      {/* <RagChatBot/> */}
+    <div className='my-20 '>
+      <RagChatBot/>
       <PDFUpload/>
       </div>
   )
