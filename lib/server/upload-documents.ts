@@ -6,7 +6,10 @@ import { generateEmbeddig, generateEmbeddings } from "../embedding";
 import { db } from "@/drizzle/db";
 import { documents } from "@/drizzle/schema";
 import { sanitizeString } from "../utils";
+import { auth } from "@clerk/nextjs/server";
 export const processPdfFile = async (formData: FormData) => {
+	const { userId } = await auth();
+	if (!userId) throw new Error("user Id not found");
 	try {
 		const file = formData.get("pdf") as File;
 		const bytes = await file.arrayBuffer();
@@ -19,21 +22,22 @@ export const processPdfFile = async (formData: FormData) => {
 			};
 		}
 		// Sanitize PDF text to remove NULL bytes
-    const cleanText = sanitizeString(data.text); //TODO: clean the text to replace data.text
+		const cleanText = sanitizeString(data.text); //TODO: clean the text to replace data.text
 		const chunks = await chunkContent(cleanText);
 		const embeddings = await generateEmbeddings(chunks);
 		const records = chunks.map((chunk, index) => ({
+			userId,
 			content: chunk,
 			embedding: embeddings[index],
 		}));
 
 		await db.insert(documents).values(records);
-		console.log(records)
+		console.log(records);
 		return {
 			success: true,
 			message: `created ${records.length} searchable chunks`,
 		};
 	} catch (error) {
-		console.log("pdf processing error",error);
+		console.log("pdf processing error", error);
 	}
 };

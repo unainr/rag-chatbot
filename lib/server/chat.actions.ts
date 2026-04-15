@@ -29,7 +29,8 @@ const tools = {
 					return "No relevant information found in the knowledge base";
 				}
 				const formattedResults = results
-					.map((r, i) => `[${i + i}] ${r.content}`)
+  .map((r, i) => `[${i + 1}] ${r.content}`)
+
 					.join("\n\n");
 				return formattedResults;
 			} catch (error) {

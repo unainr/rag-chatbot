@@ -156,10 +156,10 @@ export default function Header2() {
 							))}
 						</nav>
 
-						<motion.div
+						<div
 							className="hidden items-center space-x-3 lg:flex"
-							variants={itemVariants}>
-							<div className="z-20">
+						>
+							<div >
 								<ModeToggle />
 							</div>
 
@@ -175,7 +175,7 @@ export default function Header2() {
 							<SignedIn>
 								<UserButton/>
 							</SignedIn>
-						</motion.div>
+						</div>
 
 						<motion.button
 							className="text-foreground hover:bg-muted rounded-lg p-2 transition-colors duration-200 lg:hidden"

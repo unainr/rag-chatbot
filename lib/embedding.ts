@@ -5,7 +5,7 @@ export const generateEmbeddig = async (text: string) => {
 	const input = text.replace(/\s+/g, " ");
 
 	const { embedding } = await embed({
-		model: google.embedding("text-embedding-004"),
+		model: google.embedding("gemini-embedding-001"),
 		value: input,
 	});
 
@@ -16,7 +16,7 @@ export const generateEmbeddings = async (text: string[]) => {
 	const inputs = text.map((text) => text.replace(/\s+/g, " "));
 
 	const { embeddings } = await embedMany({
-		model: google.embedding("text-embedding-004"),
+		model: google.embedding("gemini-embedding-001"),
 		values: inputs,
 	});
 	return embeddings;

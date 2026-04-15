@@ -5,14 +5,16 @@ import {
 	uuid,
 	vector,
 	index,
+	varchar,
 } from "drizzle-orm/pg-core";
 
 export const documents  = pgTable(
 	"documents",
 	{
 		id: uuid("id").primaryKey().defaultRandom(),
+		 userId: varchar('user_id', { length: 255 }).notNull(),
 		content: text("content").notNull(),
-		embedding: vector("embedding", { dimensions: 768 }),
+		embedding: vector("embedding", { dimensions: 3072  }),
 		created_at: timestamp("created_at").notNull().defaultNow(),
 		updated_at: timestamp("updated_at").notNull().defaultNow(),
 	},

@@ -1,0 +1,1 @@
+ALTER TABLE "documents" ADD COLUMN "user_id" varchar(255) NOT NULL;
